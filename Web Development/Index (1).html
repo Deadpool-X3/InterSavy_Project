@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            overflow: hidden;
+            margin-top: 150px;
+            display: flex;
+            /*background-color: red;*/
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .container {
+       width: 500px;
+       height: 300px;
+            padding: 40px;
+background-image: url(https://c4.wallpaperflare.com/wallpaper/861/409/209/time-background-watch-wallpaper-preview.jpg);     
+       border-radius: 7px;
+
+            box-shadow: 1px 1px 10px  rgb(0, 0, 0);
+
+        }
+
+        #timer {
+            margin-top: 100px;
+            justify-content: center;
+            align-items: center;
+            color: azure;
+            font-size: 48px;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 1.5px;
+            line-height: normal;
+        } 
+
+        #buttons {
+
+            padding: 5px;
+            margin-top: 20px;
+        }
+
+        .reset,
+        .start,
+        .stop {
+            color: white;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 5px;
+            width: 100px;
+            font:600 24px 'Segoe UI';
+            cursor: pointer;
+            background-color: rgba(74, 74, 74, 0.134);
+            transition: .3s ease all;
+border: none;
+        }
+        .reset:hover,.start:hover,.stop:hover{
+            opacity:.7!important;
+            border: 1px solid #fff;
+            box-shadow: 1px 1px 10px  rgb(255, 255, 255);
+
+            outline: none;
+            background-color: #ffffff85;
+            color: rgb(0, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="timer">00:00:00:000</div>
+        <div id="buttons">
+            <button class="start" onclick="startTimer()">Start</button>
+            <button class="stop" onclick="stopTimer()">Stop</button>
+            <button class="reset" onclick="resetTimer()">Reset</button>
+        </div>
+    </div>
+    <script>
+        var timerInterval;
+        var milliseconds = 0, seconds = 0, minutes = 0, hours = 0;
+        var display = document.getElementById('timer');
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(incrementTimer, 10);
+        }
+
+        function stopTimer() {
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            milliseconds = 0;
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+            display.textContent = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds) + ':' + formatMilliseconds(milliseconds);
+        }
+
+        function incrementTimer() {
+            milliseconds++;
+            if (milliseconds >= 1000) {
+                milliseconds = 0;
+                seconds++;
+                if (seconds >= 60) {
+                    seconds = 0;
+                    minutes++;
+                    if (minutes >= 60) {
+                        minutes = 0;
+                        hours++;
+                    }
+                }
+            }
+            display.textContent = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds) + ':' + formatMilliseconds(milliseconds);
+        }
+
+        function formatTime(time) {
+            return time < 10 ? '0' + time : time;
+        }
+
+        function formatMilliseconds(time) {
+            return time < 10 ? '00' + time : (time < 100 ? '0' + time : time);
+        }
+    </script>
+</body>
+
+</html>
